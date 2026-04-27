@@ -15,8 +15,8 @@ export const site: Site = {
   name: "Mahir Ahmed",
   oneLiner: "Builder and closer. CS @ UNSW.",
   about: [
-    "I'm a 20 y/o CS student at UNSW. Founding CTO at Ashhadu, a matchmaking app I built and shipped end-to-end as the sole dev.",
-    "Also run FM Agency, a marketing shop I started on the side.",
+    "I'm a 20 y/o 3rd year CS student at UNSW. Ex-Founding CTO at Ashhadu, a matchmaking app I built and shipped end-to-end as the sole dev.",
+    "Also run FM Agency, a marketing agency I've been running for the past 2 years'.",
   ],
   links: [
     {
