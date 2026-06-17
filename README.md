@@ -1,76 +1,92 @@
 # mahirahmed.dev
 
-Personal portfolio. Next.js 14+ App Router, TypeScript, Tailwind, MDX-backed
-case studies, deployed on Vercel. Terminal-themed (monospace, charcoal/ink
-palette, blinking cursor — tasteful, not chaotic).
+Personal portfolio for [mahirahmed.dev](https://mahirahmed.dev) — a terminal-themed site
+built with Next.js, TypeScript, and Tailwind CSS.
 
-## Local dev
+The home page is a scripted shell session (`whoami`, `cat about.txt`, `ls links/`,
+`ls work/`). Project folders open into MDX-backed case-study pages at `/work/[slug]`.
+
+## Stack
+
+- **Framework:** Next.js 16 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Content:** MDX case studies via `gray-matter` + `next-mdx-remote`
+- **Deploy:** Vercel
+
+## Features
+
+- Terminal-inspired UI with a typed-on-load session animation
+- Full static render on first paint for SEO and no-JS visitors
+- Respects `prefers-reduced-motion` (animation skipped when enabled)
+- MDX project pages with optional frontmatter links
+- Resume and contact links on the home page
+- No analytics, cookies, or tracking
+
+## Local development
+
+Requires Node.js 20+.
 
 ```bash
 npm install
 npm run dev
 ```
 
-App runs on `http://localhost:3000`.
+Open [http://localhost:3000](http://localhost:3000).
 
-## Adding a project case study
-
-Drop one MDX file per project into `content/projects/`. The filename becomes
-the URL slug — `ashhadu.mdx` is served at `/work/ashhadu`.
-
-```yaml
----
-title: Ashhadu
-summary: One-line pitch shown under the title.
-year: 2025
-role: Founding CTO
-links:
-  - label: live
-    href: https://example.com
-  - label: github
-    href: https://github.com/...
----
-
-# Section heading
-
-Body MDX. Headings, lists, code, blockquotes, and links inherit the site
-palette automatically.
+```bash
+npm run build   # production build
+npm run lint    # ESLint
 ```
 
-`title` and `summary` are required, everything else is optional. Slugs are
-pre-rendered at build via `generateStaticParams`, so adding a new project
-needs a redeploy.
-
-## Project layout
+## Project structure
 
 ```
 app/
-  layout.tsx            metadata, font, body shell
-  page.tsx              terminal-session home
+  layout.tsx            Site metadata, font, shell
+  page.tsx              Home terminal session
   work/[slug]/page.tsx  MDX case-study route
-components/terminal/    Prompt, Cursor, Divider, Shell, TypedSession
-content/projects/       *.mdx case studies live here
+components/terminal/    Prompt, Cursor, Shell, TypedSession, etc.
+content/projects/       One .mdx file per project
 lib/
-  site.ts               name, one-liner, about, links
-  projects.ts           reads + parses content/projects
+  site.ts               Name, bio, and home-page links
+  projects.ts           Loads and parses project MDX
+public/                 Static assets (e.g. resume PDF)
 ```
 
-## Deploy on Vercel
+## Site content
 
-1. Push this repo to GitHub.
-2. In Vercel: **Add New > Project**, import the repo. Framework is auto-detected
-   as Next.js, no overrides needed.
-3. Deploy. The first build will succeed even with no project files.
-4. Connect the domain: Vercel project → **Settings > Domains** → add
-   `mahirahmed.dev` and `www.mahirahmed.dev`. Update DNS at the registrar
-   (`A` record for apex to `76.76.21.21`, `CNAME` `www` to
-   `cname.vercel-dns.com` — Vercel will show exact values).
+**Home page** — edit `lib/site.ts` for name, about text, and links (email,
+LinkedIn, GitHub, resume).
 
-That's it. Pushing to `main` redeploys automatically.
+**Projects** — add a `.mdx` file to `content/projects/`. The filename becomes
+the URL slug (`ashhadu.mdx` → `/work/ashhadu`). Projects listed on the home
+page are loaded automatically.
 
-## Notes
+```yaml
+---
+title: Project Name
+summary: One-line description shown under the title.
+year: 2025
+role: Your role
+links:
+  - label: live
+    href: https://example.com
+---
 
-- The home-page typing animation runs once on load and respects
-  `prefers-reduced-motion`. SSR renders the full session, so SEO / no-JS
-  visitors see all the content immediately.
-- No analytics, no tracking, no cookies. Add them when there's a reason to.
+## Section heading
+
+Body content in MDX.
+```
+
+`title` and `summary` are required. Slugs are pre-rendered at build time via
+`generateStaticParams`, so new projects need a redeploy.
+
+## Deployment
+
+Push to `main` on GitHub — Vercel picks up the repo and deploys automatically.
+Custom domain (`mahirahmed.dev`) is configured in the Vercel project settings.
+
+## License
+
+See [LICENSE](LICENSE).

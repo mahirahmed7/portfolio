@@ -49,7 +49,7 @@ export default async function ProjectPage({
 
   return (
     <Shell>
-      <Prompt cwd="~/work" command={`cat ${slug}.md`} />
+      <Prompt cwd="~/work" command={`ls ${slug}/`} />
 
       <header className="mt-6">
         <h1 className="text-2xl font-semibold tracking-tight text-ink">

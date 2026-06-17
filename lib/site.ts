@@ -34,5 +34,10 @@ export const site: Site = {
       href: "https://github.com/mahirahmed07",
       display: "github.com/mahirahmed07",
     },
+    {
+      label: "resume",
+      href: "/Mahir_Ahmed_Resume.pdf",
+      display: "Mahir_Ahmed_Resume.pdf",
+    },
   ],
 };
